@@ -102,8 +102,8 @@ def get_profile(username, headers):
         return None
 
 if __name__ == "__main__":
-    headers = login("chinmaykhachane@gmail.com", "rp6pboFqhT")
-    get_profile("ValidPhoenix88", headers)
+    headers = login("email", "password")
+    get_profile("in_game_name", headers)
 
 
 
