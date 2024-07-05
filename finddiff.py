@@ -7,7 +7,11 @@ def find_profitable(margin, buy_cost):
     profitable = []
     for name, id in d:
         orders = item_top(name)
-        stats = fetch_item_statistics(name, 7)
+        try:
+            stats = fetch_item_statistics(name, 7)
+        except IndexError:
+            print("Not enough data")
+            stats = False
         if orders:
             sell_orders = []
             buy_orders = []
@@ -57,7 +61,7 @@ def sell_flip(margin, buy_cost, keywords):
 
 if __name__ == "__main__":
 
-    x = find_profitable(20,300)
+    x = find_profitable(25,300)
     x = sorted(x, key=lambda x: -x["volume"])
     if x:
         print_data(x)

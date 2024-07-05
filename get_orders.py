@@ -66,7 +66,7 @@ def fetch_items(keyword=None):
     data = request.json()
     data = data["data"]
     if keyword is not None:
-        items_filtered = [(i["i18n"]["en"]["name"], i["id"])for i in data
+        items_filtered = [(i["urlName"], i["id"])for i in data
                           if any(word in i["i18n"]["en"]["name"] for word in keyword)]
         return items_filtered
     else:
@@ -83,7 +83,7 @@ def item_top(item_name):
     url = f"{WFM_API2}/orders/item/{item_url}/top"
     print(url)
     filtered_orders = []
-    if "Primed" in item_name or "Arcane" in item_name:
+    if "primed" in item_name or "arcane" in item_url:
         payload = {
             "maxRank": "true"
         }
@@ -100,18 +100,17 @@ def item_top(item_name):
                 filtered_orders.append({"platinum": order["platinum"], "quantity": order["quantity"],
                                         "rank": order["rank"], "order_type": "sell"
                                         })
-        except requests.exceptions.HTTPError as http_err:
-            print(f"HTTP error occurred: {http_err}")
-        except requests.exceptions.RequestException as req_err:
-            print(f"Request error occurred: {req_err}")
-            print(f"The current url is {url}")
+        except requests.exceptions.RequestException as err:
+            print(f"error occurred: {err}")
+        except TypeError:
+            print("Ain't shit in here")
 
     elif "Prime Set" in item_name:
 
         try:
             request = requests.get(url=url)
             data = request.json()
-
+            time.sleep(0.35)
 
             if data["data"]["buy"]:
                 for order in request.json()["data"]["buy"]:
@@ -146,6 +145,6 @@ def item_top(item_name):
 
 
 if __name__ == "__main__":
-    print_data(fetch_item_statistics("Primed Rubedo-Lined Barrel",7))
+    print_data(item_top("primed_point_blank"))
 
 
