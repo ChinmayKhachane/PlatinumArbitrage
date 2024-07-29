@@ -3,6 +3,7 @@ import json
 from get_data import fetch_data, print_data, api_host
 import requests
 import time
+import argparse
 
 WFM_API2 = "https://api.warframe.market/v2"
 
@@ -91,7 +92,7 @@ def item_top(item_name):
     url = f"{WFM_API2}/orders/item/{item_url}/top"
     print(url)
     filtered_orders = []
-    if "primed" in item_name or "arcane" in item_url:
+    if "primed" in item_url or "arcane" in item_url:
         payload = {
             "maxRank": "true"
         }
@@ -113,7 +114,7 @@ def item_top(item_name):
         except TypeError:
             print("Ain't shit in here")
 
-    elif "Prime Set" in item_name:
+    elif "prime_set" in item_url:
 
         try:
             request = requests.get(url=url)
@@ -135,16 +136,20 @@ def item_top(item_name):
         except requests.exceptions.RequestException as req_err:
             print(f"Request error occurred: {req_err}")
             print(f"The current url is {url}")
+        except:
+            print("sumthin happened")
 
 
     return filtered_orders
 
 
 
-
-
-
-
+def main():
+    parser = argparse.ArgumentParser(description='Get orders for an item')
+    parser.add_argument('--keyword', type=str, default="Primed Pressure Point",
+                        help='Keyword(s) to search for')
+    args = parser.parse_args()
+    print_data(item_top(args.keyword))
 
 
 
@@ -153,6 +158,6 @@ def item_top(item_name):
 
 
 if __name__ == "__main__":
-    print_data(item_top("primed_point_blank"))
+    main()
 
 
