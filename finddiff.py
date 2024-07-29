@@ -1,9 +1,9 @@
 from get_orders import api_host, item_top, fetch_item_statistics, fetch_items, get_item_orders
 from get_data import print_data
+import argparse
+def find_profitable(margin, buy_cost, keyword):
 
-def find_profitable(margin, buy_cost):
-
-    d = fetch_items(["Primed"])
+    d = fetch_items(keyword)
     profitable = []
     for name, id in d:
         orders = item_top(name)
@@ -56,17 +56,23 @@ def sell_flip(margin, buy_cost, keywords):
     return profitable
 
 
-
-
-
-if __name__ == "__main__":
-
-    x = find_profitable(25,300)
-    x = sorted(x, key=lambda x: -x["volume"])
+def main():
+    parser = argparse.ArgumentParser(description='Find and print profitable items.')
+    parser.add_argument('--min_value', type=int, default=25, help='Minimum margin')
+    parser.add_argument('--max_value', type=int, default=300, help='Maximum cost of buying')
+    parser.add_argument('--keyword', type=str, nargs='+', default=["Primed"], help='Keyword(s) to search for')
+    args = parser.parse_args()
+    x = find_profitable(args.min_value, args.max_value, args.keyword)
     if x:
         print_data(x)
     else:
         print("Its empty")
+
+
+if __name__ == "__main__":
+    main()
+
+
 
 
 

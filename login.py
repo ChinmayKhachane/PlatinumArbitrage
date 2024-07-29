@@ -20,7 +20,6 @@ def login(
     if response.status_code != 200:
         print(response)
         return None, None
-    ingame_name = response.json()["payload"]["user"]["ingame_name"]
     jwt_token = response.headers["Authorization"]
     headers["Authorization"] = jwt_token
     headers["auth_type"] = "header"
@@ -31,7 +30,7 @@ def login(
 def place_order(headers, item_id, item_name, quantity, platinum, order_type, rank=5):
 
     url = f"{WFM_API}/profile/orders"
-    if "Arcane" in item_name:
+    if "arcane" in item_name:
         payload = {
             "item":item_id,
             "order_type": order_type,
@@ -41,7 +40,7 @@ def place_order(headers, item_id, item_name, quantity, platinum, order_type, ran
             "visible": True
 
         }
-    elif "Prime Set" in item_name:
+    elif "prime_set" in item_name:
         payload = {
             "item": item_id,
             "order_type": order_type,
@@ -50,7 +49,7 @@ def place_order(headers, item_id, item_name, quantity, platinum, order_type, ran
             "visible": True
 
         }
-    elif "Primed" in item_name:
+    elif "primed" in item_name:
         payload = {
             "item": item_id,
             "order_type": order_type,
@@ -67,7 +66,7 @@ def place_order(headers, item_id, item_name, quantity, platinum, order_type, ran
     except:
         print("Failed to create order: " + str(item_name) + " error code: " + str(response.status_code))
         print(json.dumps(response.json(), indent=2))
-        return None1
+        return None
 
 
 def delete_order(headers, order_id):

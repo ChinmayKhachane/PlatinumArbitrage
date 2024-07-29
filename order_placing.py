@@ -2,10 +2,10 @@ from finddiff import find_profitable
 from login import login, place_order, delete_order, get_profile
 from get_data import print_data
 from get_orders import get_item_orders
+import argparse
 
-
-def PlaceDaOrders(margin, threshold, headers):
-    profitable_list = find_profitable(margin, threshold)
+def PlaceDaOrders(margin, threshold, keyword, headers):
+    profitable_list = find_profitable(margin, threshold, keyword)
     order_json = []
     for i in profitable_list:
         buying_point = i["top buy"]  + 1
@@ -53,6 +53,14 @@ def CheckDaOrders(headers, margin):
     return "Your done"
 
 
+def main():
+    parser = argparse.ArgumentParser(description='Place orders for profitable items.')
+    parser.add_argument('--min_value', type=int, default=25, help='Minimum margin')
+    parser.add_argument('--max_cost', type=int, default=300, help='Maximum cost of buying')
+    parser.add_argument('--keyword', type=str, nargs='+', default=["Primed"], help='Keyword(s) to search for')
+    args = parser.parse_args()
+    headers = login("chinmaykhachane@gmail.com", "rp6pboFqhT")
+    PlaceDaOrders(args.min_value, args.max_cost, headers=headers, keyword=args.keyword)
 
 
 
@@ -62,5 +70,4 @@ def CheckDaOrders(headers, margin):
 
 
 if __name__ == "__main__":
-    headers = login("chinmaykhachane@gmail.com", "rp6pboFqhT")
-    PlaceDaOrders(25,200, headers)
+    main()

@@ -49,12 +49,20 @@ def fetch_item_statistics(item, days):
     NinetyDay = data["payload"]["statistics_closed"]["90days"]
     variable_day_stat = []
     last = len(NinetyDay)
-    days = days * 2
-    for i in range(1, days, 2):
-        if NinetyDay[last - (i+1)]["mod_rank"] == 10:
+    if "primed" in item_url:
+        days = days * 2
+        for i in range(1, days, 2):
+            if NinetyDay[last - (i+1)]["mod_rank"] == 10:
+                day_data = NinetyDay[last - (i+1)]
+                variable_day_stat.append({"avg_price": day_data["avg_price"],
+                                          "median": day_data["median"], "volume": day_data["volume"]})
+    elif "prime_set" in item_url:
+        for i in range(1, days):
             day_data = NinetyDay[last - (i+1)]
             variable_day_stat.append({"avg_price": day_data["avg_price"],
-                                      "median": day_data["median"], "volume": day_data["volume"]})
+                                        "median": day_data["median"], "volume": day_data["volume"]})
+
+
 
     return variable_day_stat
 
