@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-##script-1
+###script-1
 
 To get the top buy and sell orders for an item. Enter the proper item name for the keyword
 
@@ -30,6 +30,7 @@ To get the top buy and sell orders for an item. Enter the proper item name for t
 python get_orders.py --keyword [KEYWORD]
 ```
 
+###script-2
 
 To find profitable items under a specific class use the following
 
