@@ -18,6 +18,9 @@ A series of scripts using the warframe.market API to find items with high resell
 Explain how to install any necessary dependencies for your project. For example:
 
 ```bash
-git clone https://github.com/yourusername/projectname.git
-cd projectname
-pip install -r requirements.txt
+git clone https://github.com/ChinmayKhachane/PlatinumArbitrage.git
+cd PlatinumArbitrage
+pip install -r requirements.txt ```
+
+## Usage
+
