@@ -59,7 +59,7 @@ def main():
     parser.add_argument('--max_cost', type=int, default=300, help='Maximum cost of buying')
     parser.add_argument('--keyword', type=str, nargs='+', default=["Primed"], help='Keyword(s) to search for')
     args = parser.parse_args()
-    headers = login("chinmaykhachane@gmail.com", "rp6pboFqhT")
+    headers = login("email", "password")
     PlaceDaOrders(args.min_value, args.max_cost, headers=headers, keyword=args.keyword)
 
 
