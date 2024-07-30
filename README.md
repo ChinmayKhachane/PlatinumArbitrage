@@ -55,7 +55,7 @@ python order_placing.py --min_value [MIN_VALUE] --max_value [MAX_VALUE] --keywor
 -keyword: the keyword(s) that are in the item name (E.g. "Primed" for primed mods)
 
 
-##License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
